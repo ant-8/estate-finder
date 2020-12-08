@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import SearchScreen from "./components/SearchScreen"
+import ListingScreen from "./components/ListingScreen"
 
 function SettingsScreen() {
   return (
@@ -18,6 +19,7 @@ function SearchStackNav() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="Listing" component={ListingScreen} />
     </Stack.Navigator>
   )
 }

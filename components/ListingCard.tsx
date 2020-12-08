@@ -9,30 +9,25 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBed, faBath } from '@fortawesome/free-solid-svg-icons'
-
-interface ListingData{
-    listingType: string, // "Rent" or "Sale"
-    imageUri?: string,
-    bedQty: number,
-    bathQty: number
-}
+import ListingData from "../types/listingData"
 
 export default function ListingCard(props: ListingData) {
+    const nav = props.navigation
     return (
         <View style={styles.container}>
-            <TouchableHighlight>
+            <TouchableHighlight onPress={() => nav.push("Listing", { listingData: props })}>
                 <View>
                     <View style={styles.info_container}>
-                        <Text style={{fontSize: 25, fontFamily: "Poppins", fontWeight: "400", color: "#333"}}>
-                            $2000
+                        <Text style={{ fontSize: 25, fontFamily: "Poppins", fontWeight: "400", color: "#333" }}>
+                            {props.price}
                         </Text>
-                        <View style={{position: "absolute", right: 15, flexDirection: "row-reverse"}}>
-                            <FontAwesomeIcon icon={ faBed } />
-                            <Text style={{transform: [{translateY: -2}], marginRight: 5, marginLeft: 10}}>
+                        <View style={{ position: "absolute", right: 15, flexDirection: "row-reverse" }}>
+                            <FontAwesomeIcon icon={faBed} />
+                            <Text style={{ transform: [{ translateY: -2 }], marginRight: 5, marginLeft: 10 }}>
                                 {props.bedQty}
                             </Text>
-                            <FontAwesomeIcon icon={ faBath } />
-                            <Text style={{transform: [{translateY: -2}], marginRight: 5, marginLeft: 10}}>
+                            <FontAwesomeIcon icon={faBath} />
+                            <Text style={{ transform: [{ translateY: -2 }], marginRight: 5, marginLeft: 10 }}>
                                 {props.bathQty}
                             </Text>
                         </View>
@@ -42,8 +37,7 @@ export default function ListingCard(props: ListingData) {
                     >
                         <Image
                             source={{
-                                uri:
-                                    "https://na.rdcpix.com/371902682/8ecb8b5c10a19ccbe1daba7bc38ec77cw-c283777xd-w750_h994_q80.jpg",
+                                uri: props.images[0]
                             }}
                             style={styles.listing_img}
                         />
@@ -52,12 +46,12 @@ export default function ListingCard(props: ListingData) {
                             colors={["transparent", "rgba(0,0,0,0.7)"]}
                             style={styles.img_gradient}
                         />
-                        <Text style={{position: "absolute", bottom: 5, left: 15, fontSize: 23, fontWeight: "500", fontFamily: "Poppins", color: "#fff"}}>
-                            A Towers
+                        <Text style={{ position: "absolute", bottom: 5, left: 15, fontSize: 23, fontWeight: "500", fontFamily: "Poppins", color: "#fff" }}>
+                            {props.address.split(",")[0]}
                         </Text>
                     </View>
                     <View style={styles.listing_type}>
-                        <Text style={{textAlign: "center", fontFamily:"Poppins", fontWeight: "600", color: "#fff", fontSize: 18}}>
+                        <Text style={{ textAlign: "center", fontFamily: "Poppins", fontWeight: "600", color: "#fff", fontSize: 18 }}>
                             {props.listingType.toUpperCase()}
                         </Text>
                     </View>
@@ -118,12 +112,13 @@ const styles = StyleSheet.create({
     container: {
         marginBottom: 60
     },
-    listing_type: { position: "absolute", 
-        top: 15, 
-        left: 15, 
-        height: 25, 
-        width: 60, 
-        borderRadius: 5, 
+    listing_type: {
+        position: "absolute",
+        top: 15,
+        left: 15,
+        height: 25,
+        width: 60,
+        borderRadius: 5,
         backgroundColor: "#3080ff",
         opacity: 0.92,
         alignContent: "center",

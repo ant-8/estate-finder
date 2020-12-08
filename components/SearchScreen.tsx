@@ -9,14 +9,19 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import ListingCard from "./ListingCard"
+import MockData from "../mock/mock.json"
 
-export default function SearchScreen() {
+interface ScreenData {
+  navigation: any
+}
+
+export default function SearchScreen(props: ScreenData) {
   const [text, setText] = React.useState("");
 
   return (
     <View style={styles.screen}>
       <SafeAreaView style={styles.container}>
-        <ScrollView style={{padding: 20}}>
+        <ScrollView style={{ padding: 20 }}>
           <Text style={styles.header}>Search</Text>
           <TextInput
             label="Properties"
@@ -39,8 +44,9 @@ export default function SearchScreen() {
               }}>Filter</Text>
             </TouchableHighlight>
           </View>
-          <ListingCard listingType="RENT" bedQty={1} bathQty={2} />
-          <ListingCard listingType="SALE" bedQty={1} bathQty={2}/>
+          {
+            MockData.map((d) => ListingCard({ ...d, ...props }))
+          }
         </ScrollView>
       </SafeAreaView>
     </View>
