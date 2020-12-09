@@ -11,20 +11,41 @@ import { TextInput } from "react-native-paper";
 import ListingCard from "./ListingCard"
 import MockData from "../mock/mock.json"
 
+interface MockDataType { 
+  images: string[]; 
+  address: string; price: string; 
+  bedQty: number; 
+  bathQty: number; 
+  sqft: number; 
+  propType: string; 
+  listingType: string;
+  desc: string; 
+}
+
 interface ScreenData {
   navigation: any
 }
 
+function AddressQuery(query: string, data: Array<MockDataType>) {
+  query = query.trim().toUpperCase()
+  if (!query) return data;
+
+  return data.filter(d => {
+    const trimmed = d.address.trim().toUpperCase();
+    return trimmed.includes(query)
+  });
+}
+
 export default function SearchScreen(props: ScreenData) {
   const [text, setText] = React.useState("");
-
+  const queryData = AddressQuery(text, MockData);
   return (
     <View style={styles.screen}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={{ padding: 20 }}>
           <Text style={styles.header}>Search</Text>
           <TextInput
-            label="Properties"
+            label="Address"
             value={text}
             onChangeText={(text) => {
               console.log(text);
@@ -45,7 +66,7 @@ export default function SearchScreen(props: ScreenData) {
             </TouchableHighlight>
           </View>
           {
-            MockData.map((d) => ListingCard({ ...d, ...props }))
+            queryData.map((d) => ListingCard({ ...d, ...props }))
           }
         </ScrollView>
       </SafeAreaView>
@@ -58,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#eee"
+    backgroundColor: "#efefef"
   },
   header: {
     fontSize: 28,

@@ -15,8 +15,9 @@ import { Button } from 'react-native-paper';
 import SlideCarousel from './SlideCarousel'
 import FocusedCarousel from './FocusedCarousel'
 
-interface ScreenProps{
-    route: any
+interface ScreenProps {
+    route: any,
+    navigation: any
 }
 
 export default function ListingScreen(props: ScreenProps) {
@@ -34,13 +35,25 @@ export default function ListingScreen(props: ScreenProps) {
                             style={{ height: 250 }}
                         />
                     </TouchableHighlight>
-                    <View style={{ flex: 2, transform: [{ translateY: -20 }], padding: 20, borderRadius: 15, backgroundColor: "#fff" }}>
+                    <View style={{
+                        flex: 2, shadowColor: "#000",
+                        shadowOffset: {
+                            width: 0,
+                            height: -3,
+                        },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 3.84,
+                        elevation: 5,
+                        transform: [{ translateY: -20 }], 
+                        padding: 20, borderRadius: 15, 
+                        backgroundColor: "#fff"
+                    }}>
                         <View style={{ marginBottom: 5 }}>
                             <Text style={{ fontSize: 34, fontWeight: "500", color: "#3080ff" }}>
                                 {data.price}
                             </Text>
                             <Text style={{ fontSize: 24, fontWeight: "400", color: "#444" }}>
-                                
+
                             </Text>
                             <Text style={{ fontSize: 17, fontWeight: "400", color: "#444" }}>
                                 {data.address}
@@ -69,17 +82,40 @@ export default function ListingScreen(props: ScreenProps) {
                         <View style={{ marginBottom: 20 }}>
                             <Text style={{ fontSize: 24, fontWeight: "500", marginBottom: 5 }}>About</Text>
                             <Text style={{ fontSize: 18, fontWeight: "400" }}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                {data.desc}
                             </Text>
                         </View>
                     </View>
                     <View style={styles.listing_type}>
                         <Text style={{ textAlign: "center", fontFamily: "Poppins", fontWeight: "600", color: "#fff", fontSize: 18 }}>
-                            {"RENT"}
+                            {data.listingType.toUpperCase()}
                         </Text>
                     </View>
                 </View>
             </ScrollView>
+            <View style={{ 
+                position: "absolute", 
+                top: 0, 
+                width: "100%", 
+                height: 50, 
+                backgroundColor: "#fff", 
+                justifyContent: "center",
+                shadowOffset: {
+                    width: 0,
+                    height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5, 
+                }}>
+                <Button style={{ width: 100 }} icon={"arrow-left"} color={"#3080ff"} mode="text"
+                    onPress={
+                        () => props.navigation.goBack()
+                    }
+                >
+                    Back
+                    </Button>
+            </View>
             <FocusedCarousel items={data.images} enabled={PhotoToggled} onExit={() => TogglePhoto(false)} />
         </SafeAreaView>
     );
@@ -88,7 +124,8 @@ export default function ListingScreen(props: ScreenProps) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
+        marginTop: 50
     },
     text_detail: {
         transform: [{ translateY: -2 }],

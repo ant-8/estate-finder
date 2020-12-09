@@ -1,6 +1,6 @@
 export default interface ListingData{
     listingType: string, // "Rent" or "Sale"
-    imageUri?: string,
+    desc: string,
     price: string,
     bedQty: number,
     bathQty: number,
