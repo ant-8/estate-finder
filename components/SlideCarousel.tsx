@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
     View,
+    StyleSheet,
     ScrollView,
     Image,
     TouchableHighlight,
@@ -8,18 +9,18 @@ import {
 } from "react-native";
 
 interface SlideItemType {
-    uri: string,
-    itemPress: (event: GestureResponderEvent) => void
+    uri: string;
+    itemPress: (event: GestureResponderEvent) => void;
 }
 
 interface CarouselType {
-    items: Array<string>,
-    itemPress: (event: GestureResponderEvent) => void
+    items: Array<string>;
+    itemPress: (event: GestureResponderEvent) => void;
 }
 
 function SlideItem(props: SlideItemType) {
     return (
-        <View style={{ height: "100%", width: 225, marginHorizontal: 5, backgroundColor: "#eee", borderRadius: 10, overflow: "hidden" }}>
+        <View style={styles.slide_item}>
             <TouchableHighlight onPress={props.itemPress} style={{ flex: 1 }}>
                 <Image
                     source={{
@@ -35,7 +36,7 @@ function SlideItem(props: SlideItemType) {
 export default function SlideCarousel(props: CarouselType) {
     return (
         <View>
-            <ScrollView horizontal={true} style={{ paddingHorizontal: 15, width: "auto", height: 175, marginHorizontal: -20 }}>
+            <ScrollView horizontal={true} style={styles.scroll_container}>
                 {props.items.map((uri: string) => SlideItem({
                     itemPress: props.itemPress,
                     uri: uri
@@ -44,3 +45,20 @@ export default function SlideCarousel(props: CarouselType) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    scroll_container: { 
+        paddingHorizontal: 15, 
+        width: "auto", 
+        height: 175, 
+        marginHorizontal: -20 
+    },
+    slide_item: { 
+        height: "100%", 
+        width: 225, 
+        marginHorizontal: 5, 
+        backgroundColor: "#eee", 
+        borderRadius: 10, 
+        overflow: "hidden" 
+    }
+})

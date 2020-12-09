@@ -22,7 +22,8 @@ interface ScreenProps {
 
 export default function ListingScreen(props: ScreenProps) {
     const data = props.route.params.listingData
-    let [PhotoToggled, TogglePhoto] = React.useState(false)
+    const [PhotoToggled, TogglePhoto] = React.useState(false)
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
@@ -35,34 +36,23 @@ export default function ListingScreen(props: ScreenProps) {
                             style={{ height: 250 }}
                         />
                     </TouchableHighlight>
-                    <View style={{
-                        flex: 2, shadowColor: "#000",
-                        shadowOffset: {
-                            width: 0,
-                            height: -3,
-                        },
-                        shadowOpacity: 0.2,
-                        shadowRadius: 3.84,
-                        elevation: 5,
-                        transform: [{ translateY: -20 }], 
-                        padding: 20, borderRadius: 15, 
-                        backgroundColor: "#fff"
-                    }}>
+                    <View style={styles.card_body}>
                         <View style={{ marginBottom: 5 }}>
-                            <Text style={{ fontSize: 34, fontWeight: "500", color: "#3080ff" }}>
+                            <Text style={styles.price_label}>
                                 {data.price}
                             </Text>
-                            <Text style={{ fontSize: 24, fontWeight: "400", color: "#444" }}>
-
-                            </Text>
-                            <Text style={{ fontSize: 17, fontWeight: "400", color: "#444" }}>
+                            <Text style={styles.address_label}>
                                 {data.address}
                             </Text>
-                            <Button style={{ width: 135, backgroundColor: "#3080ff", position: "absolute", right: 0, top: 5 }} icon="mail" mode="contained" onPress={() => console.log('Pressed')}>
+                            <Button
+                                style={styles.contact_btn}
+                                icon="mail"
+                                mode="contained"
+                                onPress={() => console.log('Pressed')}>
                                 Contact
                             </Button>
                         </View>
-                        <View style={{ flexDirection: "row", marginBottom: 20, marginTop: 5 }}>
+                        <View style={styles.room_container}>
                             <FontAwesomeIcon icon={faBed} size={25} color={"#555"} />
                             <Text style={styles.text_detail}>
                                 {data.bedQty}
@@ -76,45 +66,34 @@ export default function ListingScreen(props: ScreenProps) {
                             </Text>
                         </View>
                         <View style={{ marginBottom: 20 }}>
-                            <Text style={{ fontSize: 24, fontWeight: "500", marginBottom: 10 }}>Photos</Text>
-                            <SlideCarousel items={data.images} itemPress={() => TogglePhoto(true)} />
+                            <Text style={styles.photos_label}>Photos</Text>
+                            <SlideCarousel 
+                                items={data.images} 
+                                itemPress={() => TogglePhoto(true)} 
+                            />
                         </View>
                         <View style={{ marginBottom: 20 }}>
-                            <Text style={{ fontSize: 24, fontWeight: "500", marginBottom: 5 }}>About</Text>
+                            <Text style={styles.about_label}>About</Text>
                             <Text style={{ fontSize: 18, fontWeight: "400" }}>
                                 {data.desc}
                             </Text>
                         </View>
                     </View>
                     <View style={styles.listing_type}>
-                        <Text style={{ textAlign: "center", fontFamily: "Poppins", fontWeight: "600", color: "#fff", fontSize: 18 }}>
+                        <Text style={styles.list_type_label}>
                             {data.listingType.toUpperCase()}
                         </Text>
                     </View>
                 </View>
             </ScrollView>
-            <View style={{ 
-                position: "absolute", 
-                top: 0, 
-                width: "100%", 
-                height: 50, 
-                backgroundColor: "#fff", 
-                justifyContent: "center",
-                shadowOffset: {
-                    width: 0,
-                    height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5, 
-                }}>
+            <View style={styles.back_toolbar}>
                 <Button style={{ width: 100 }} icon={"arrow-left"} color={"#3080ff"} mode="text"
                     onPress={
                         () => props.navigation.goBack()
                     }
                 >
                     Back
-                    </Button>
+                </Button>
             </View>
             <FocusedCarousel items={data.images} enabled={PhotoToggled} onExit={() => TogglePhoto(false)} />
         </SafeAreaView>
@@ -145,5 +124,72 @@ const styles = StyleSheet.create({
         opacity: 0.92,
         alignContent: "center",
         justifyContent: "center"
+    },
+    contact_btn: {
+        width: 135,
+        backgroundColor: "#3080ff",
+        position: "absolute",
+        right: 0,
+        top: 5
+    },
+    list_type_label: { 
+        textAlign: "center",
+        fontFamily: "Poppins",
+        fontWeight: "600", 
+        color: "#fff", 
+        fontSize: 18 
+    },
+    about_label: { 
+        fontSize: 24, 
+        fontWeight: "500", 
+        marginBottom: 5 
+    },
+    photos_label: { 
+        fontSize: 24, 
+        fontWeight: "500", 
+        marginBottom: 10 
+    },
+    card_body: {
+        flex: 2, shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: -3,
+        },
+        shadowOpacity: 0.2,
+        shadowRadius: 3.84,
+        elevation: 5,
+        transform: [{ translateY: -20 }],
+        padding: 20, borderRadius: 15,
+        backgroundColor: "#fff"
+    },
+    back_toolbar: {
+        position: "absolute",
+        top: 0,
+        width: "100%",
+        height: 50,
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    address_label: { 
+        fontSize: 20, 
+        fontWeight: "400", 
+        color: "#444" 
+    },
+    price_label: { 
+        fontSize: 34, 
+        fontWeight: "500", 
+        color: "#3080ff" 
+    },
+    room_container: { 
+        flexDirection: "row", 
+        marginBottom: 20, 
+        marginTop: 5 
     }
 });

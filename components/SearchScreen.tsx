@@ -13,7 +13,8 @@ import MockData from "../mock/mock.json"
 
 interface MockDataType { 
   images: string[]; 
-  address: string; price: string; 
+  address: string; 
+  price: string; 
   bedQty: number; 
   bathQty: number; 
   sqft: number; 
@@ -23,7 +24,7 @@ interface MockDataType {
 }
 
 interface ScreenData {
-  navigation: any
+  navigation: any;
 }
 
 function AddressQuery(query: string, data: Array<MockDataType>) {
@@ -79,12 +80,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    backgroundColor: "#efefef"
+    backgroundColor: "#fbfbfb"
   },
   header: {
     fontSize: 28,
     textAlign: "left",
-    fontFamily: "Poppins",
+    fontWeight: "500",
     marginBottom: 12,
   },
   container: {

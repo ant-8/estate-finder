@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
     Text,
+    StyleSheet,
     View,
     Image,
     TouchableHighlight,
@@ -8,19 +9,19 @@ import {
 } from "react-native";
 
 interface CarouselType{
-    items: Array<string>,
-    enabled: Boolean,
-    onExit: ((event: GestureResponderEvent) => void)
+    items: Array<string>;
+    enabled: Boolean;
+    onExit: ((event: GestureResponderEvent) => void);
 }
 
 export default function FocusedCarousel(props: CarouselType) {
     const images = props.items
-    let [contentIndex, setIndex] = React.useState(0)
+    const [contentIndex, setIndex] = React.useState(0)
 
     return props.enabled ? (
-        <View style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", justifyContent: "center" }}>
-            <TouchableHighlight onPress={props.onExit} style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", backgroundColor: "#111", opacity: 0.8 }}>
-                <Text style={{ position: "absolute", top: 20, right: 25, fontSize: 32, color: "#fff" }}>
+        <View style={styles.focused_container}>
+            <TouchableHighlight onPress={props.onExit} style={styles.exit_touch}>
+                <Text style={styles.x_label}>
                     X
                 </Text>
             </TouchableHighlight>
@@ -31,7 +32,7 @@ export default function FocusedCarousel(props: CarouselType) {
                     }}
                     style={{ flex: 1 }}
                 />
-                <TouchableHighlight style={{ position: "absolute", left: 0, height: "100%", width: 40, backgroundColor: "#111", opacity: 0.55, justifyContent: "center" }}
+                <TouchableHighlight style={[styles.slide_touch, {left: 0}]}
                     onPress={() => {
                         if (contentIndex == 0) {
                             setIndex(images.length - 1)
@@ -40,9 +41,9 @@ export default function FocusedCarousel(props: CarouselType) {
                             setIndex(contentIndex - 1);
                         }
                     }}>
-                    <Text style={{textAlign: "center", fontSize: 32, color: "#fff"}}>{"<"}</Text>
+                    <Text style={styles.control_label}>{"<"}</Text>
                 </TouchableHighlight>
-                <TouchableHighlight style={{ position: "absolute", right: 0, height: "100%", width: 40, backgroundColor: "#111", opacity: 0.55, justifyContent: "center" }}
+                <TouchableHighlight style={[styles.slide_touch, {right: 0}]}
                     onPress={() => {
                         if (contentIndex == images.length - 1){
                             setIndex(0);    
@@ -51,9 +52,49 @@ export default function FocusedCarousel(props: CarouselType) {
                             setIndex(contentIndex + 1);
                         }
                     }}>
-                    <Text style={{textAlign: "center", fontSize: 32, color: "#fff"}}>{">"}</Text>
+                    <Text style={styles.control_label}>{">"}</Text>
                 </TouchableHighlight>
             </View>
         </View>
     ) : null
 }
+
+const styles = StyleSheet.create({
+    focused_container: { 
+        position: "absolute", 
+        left: 0, 
+        top: 0, 
+        width: "100%", 
+        height: "100%", 
+        justifyContent: "center" 
+    },
+    x_label: { 
+        position: "absolute", 
+        top: 20, 
+        right: 25, 
+        fontSize: 32, 
+        color: "#fff" 
+    },
+    exit_touch: {
+        position: "absolute",
+        left: 0,
+        top: 0, 
+        width: "100%", 
+        height: "100%", 
+        backgroundColor: "#111", 
+        opacity: 0.8 
+    },
+    slide_touch: { 
+        position: "absolute", 
+        height: "100%", 
+        width: 40, 
+        backgroundColor: "#111", 
+        opacity: 0.55, 
+        justifyContent: "center" 
+    },
+    control_label: {
+        textAlign: "center", 
+        fontSize: 32, 
+        color: "#fff"
+    }
+})

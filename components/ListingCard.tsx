@@ -13,28 +13,29 @@ import ListingData from "../types/listingData"
 
 export default function ListingCard(props: ListingData) {
     const nav = props.navigation
+    
     return (
         <View style={styles.container}>
-            <TouchableHighlight onPress={() => nav.push("Listing", { listingData: props })}>
+            <TouchableHighlight
+                onPress={() => nav.push("Listing", { listingData: props })}
+            >
                 <View>
                     <View style={styles.info_container}>
-                        <Text style={{ fontSize: 25, fontFamily: "Poppins", fontWeight: "400", color: "#333" }}>
+                        <Text style={styles.price_label}>
                             {props.price}
                         </Text>
-                        <View style={{ position: "absolute", right: 15, flexDirection: "row-reverse" }}>
+                        <View style={styles.room_container}>
                             <FontAwesomeIcon icon={faBed} />
-                            <Text style={{ transform: [{ translateY: -2 }], marginRight: 5, marginLeft: 10 }}>
+                            <Text style={styles.room_label}>
                                 {props.bedQty}
                             </Text>
                             <FontAwesomeIcon icon={faBath} />
-                            <Text style={{ transform: [{ translateY: -2 }], marginRight: 5, marginLeft: 10 }}>
+                            <Text style={styles.room_label}>
                                 {props.bathQty}
                             </Text>
                         </View>
                     </View>
-                    <View
-                        style={styles.img_container}
-                    >
+                    <View style={styles.img_container}>
                         <Image
                             source={{
                                 uri: props.images[0]
@@ -42,16 +43,15 @@ export default function ListingCard(props: ListingData) {
                             style={styles.listing_img}
                         />
                         <LinearGradient
-                            // Background Linear Gradient
                             colors={["transparent", "rgba(0,0,0,0.7)"]}
                             style={styles.img_gradient}
                         />
-                        <Text style={{ position: "absolute", bottom: 5, left: 15, fontSize: 23, fontWeight: "500", fontFamily: "Poppins", color: "#fff" }}>
+                        <Text style={styles.address_label}>
                             {props.address.split(",")[0]}
                         </Text>
                     </View>
                     <View style={styles.listing_type}>
-                        <Text style={{ textAlign: "center", fontFamily: "Poppins", fontWeight: "600", color: "#fff", fontSize: 18 }}>
+                        <Text style={styles.list_type_label}>
                             {props.listingType.toUpperCase()}
                         </Text>
                     </View>
@@ -123,5 +123,37 @@ const styles = StyleSheet.create({
         opacity: 0.92,
         alignContent: "center",
         justifyContent: "center"
+    },
+    price_label: {
+        fontSize: 25,
+        fontFamily: "Poppins",
+        fontWeight: "400",
+        color: "#333"
+    },
+    room_label: {
+        transform: [{ translateY: -2 }],
+        marginRight: 5,
+        marginLeft: 10
+    },
+    address_label: {
+        position: "absolute",
+        bottom: 5,
+        left: 15,
+        fontSize: 23,
+        fontWeight: "500",
+        fontFamily: "Poppins",
+        color: "#fff"
+    },
+    list_type_label: {
+        textAlign: "center",
+        fontFamily: "Poppins",
+        fontWeight: "600",
+        color: "#fff",
+        fontSize: 18
+    },
+    room_container: {
+        position: "absolute",
+        right: 15,
+        flexDirection: "row-reverse"
     }
 });
