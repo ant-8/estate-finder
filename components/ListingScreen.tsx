@@ -25,9 +25,9 @@ export default function ListingScreen(props: ScreenProps) {
     const [PhotoToggled, TogglePhoto] = React.useState(false)
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <View style={styles.screen}>
             <ScrollView>
-                <View style={styles.screen}>
+                <View style={{ marginTop: 50 }}>
                     <TouchableHighlight onPress={() => TogglePhoto(true)}>
                         <Image
                             source={{
@@ -67,9 +67,9 @@ export default function ListingScreen(props: ScreenProps) {
                         </View>
                         <View style={{ marginBottom: 20 }}>
                             <Text style={styles.photos_label}>Photos</Text>
-                            <SlideCarousel 
-                                items={data.images} 
-                                itemPress={() => TogglePhoto(true)} 
+                            <SlideCarousel
+                                items={data.images}
+                                itemPress={() => TogglePhoto(true)}
                             />
                         </View>
                         <View style={{ marginBottom: 20 }}>
@@ -96,20 +96,14 @@ export default function ListingScreen(props: ScreenProps) {
                 </Button>
             </View>
             <FocusedCarousel items={data.images} enabled={PhotoToggled} onExit={() => TogglePhoto(false)} />
-        </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        backgroundColor: "#fff",
-        marginTop: 50
-    },
     text_detail: {
         transform: [{ translateY: -2 }],
-        marginRight: 5,
-        marginLeft: 10,
+        marginHorizontal: 10,
         fontSize: 18,
         color: "#444"
     },
@@ -132,22 +126,22 @@ const styles = StyleSheet.create({
         right: 0,
         top: 5
     },
-    list_type_label: { 
+    list_type_label: {
         textAlign: "center",
         fontFamily: "Poppins",
-        fontWeight: "600", 
-        color: "#fff", 
-        fontSize: 18 
+        fontWeight: "600",
+        color: "#fff",
+        fontSize: 18
     },
-    about_label: { 
-        fontSize: 24, 
-        fontWeight: "500", 
-        marginBottom: 5 
+    about_label: {
+        fontSize: 24,
+        fontWeight: "500",
+        marginBottom: 5
     },
-    photos_label: { 
-        fontSize: 24, 
-        fontWeight: "500", 
-        marginBottom: 10 
+    photos_label: {
+        fontSize: 24,
+        fontWeight: "500",
+        marginBottom: 10
     },
     card_body: {
         flex: 2, shadowColor: "#000",
@@ -177,19 +171,22 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
-    address_label: { 
-        fontSize: 20, 
-        fontWeight: "400", 
-        color: "#444" 
+    address_label: {
+        fontSize: 20,
+        fontWeight: "400",
+        color: "#444"
     },
-    price_label: { 
-        fontSize: 34, 
-        fontWeight: "500", 
-        color: "#3080ff" 
+    price_label: {
+        fontSize: 34,
+        fontWeight: "500",
+        color: "#3080ff"
     },
-    room_container: { 
-        flexDirection: "row", 
-        marginBottom: 20, 
-        marginTop: 5 
+    room_container: {
+        flexDirection: "row",
+        marginBottom: 20,
+        marginTop: 5
+    },
+    screen: {
+        height: Dimensions.get('window').height
     }
 });

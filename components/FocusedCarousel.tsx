@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
     Text,
+    Dimensions,
     StyleSheet,
     View,
     Image,
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
         left: 0, 
         top: 0, 
         width: "100%", 
-        height: "100%", 
+        height: "100%",
         justifyContent: "center" 
     },
     x_label: { 

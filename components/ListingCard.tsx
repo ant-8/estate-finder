@@ -13,11 +13,11 @@ import ListingData from "../types/listingData"
 
 export default function ListingCard(props: ListingData) {
     const nav = props.navigation
-    
+
     return (
         <View style={styles.container}>
             <TouchableHighlight
-                onPress={() => nav.push("Listing", { listingData: props })}
+                onPress={() => nav.navigate("Listing", { listingData: props })}
             >
                 <View>
                     <View style={styles.info_container}>

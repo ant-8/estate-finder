@@ -44,9 +44,9 @@ export default function SearchScreen(props: ScreenData) {
     <View style={styles.screen}>
       <SafeAreaView style={styles.container}>
         <ScrollView style={{ padding: 20 }}>
-          <Text style={styles.header}>Search</Text>
+          <Text style={styles.header}>Properties Near You</Text>
           <TextInput
-            label="Address"
+            label="Search Address"
             value={text}
             onChangeText={(text) => {
               console.log(text);
